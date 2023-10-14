@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: API de Usuarios
+  version: 1.0.0
+  description: Documentación de la API de usuarios
+servers:
+  - url: 'http://loacalhost:5000/'
+
+paths:
+  /api/users:
+    post:
+      summary: Crear un nuevo usuario
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                role:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Usuario creado exitosamente
+        '500':
+          description: Error en el servidor
+
+  /api/login:
+    post:
+      summary: Iniciar sesión
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Inicio de sesión exitoso
+        '500':
+          description: Error en el servidor
+
+  /api/users/{user_id}:
+    delete:
+      summary: Eliminar un usuario
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario eliminado exitosamente
+        '500':
+          description: Error en el servidor
+
+    put:
+      summary: Actualizar un usuario
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                role:
+                  type: string
+      responses:
+        '200':
+          description: Usuario actualizado exitosamente
+        '500':
+          description: Error en el servidor
+
+  /api/users/{user_id}:
+    get:
+      summary: Obtener información de un usuario
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Información del usuario obtenida exitosamente
+        '500':
+          description: Error en el servidor
